@@ -9,7 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 1. Mobile Menu Toggle
+    // 1. Scroll to Top Visibility
+    const scrollTopBtn = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            scrollTopBtn.classList.add('show');
+        } else {
+            scrollTopBtn.classList.remove('show');
+        }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // 2. Mobile Menu Toggle
     const menuToggle = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
 
@@ -26,13 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. Highlight Menu Aktif saat Scroll
+    // 3. Highlight Menu Aktif saat Scroll
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-links a');
 
     window.addEventListener('scroll', () => {
         let current = '';
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
@@ -49,15 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Animasi Reveal saat Scroll
+    // 4. Animasi Reveal saat Scroll
     const revealElements = document.querySelectorAll('.section, .skill-card, .project-card');
-    
+
     const revealOnScroll = () => {
         const triggerBottom = window.innerHeight / 5 * 4;
-        
+
         revealElements.forEach(el => {
             const elTop = el.getBoundingClientRect().top;
-            
+
             if (elTop < triggerBottom) {
                 el.classList.add('active');
             }
@@ -71,15 +88,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Jalankan sekali saat load
     revealOnScroll();
 
-    // 4. Smooth Scrolling dengan Offset untuk Header Fixed
+    // 5. Smooth Scrolling dengan Offset untuk Header Fixed
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
-            
+
             if (targetElement) {
                 const headerOffset = 70;
                 const elementPosition = targetElement.getBoundingClientRect().top;
